@@ -1,0 +1,31 @@
+# author: sturgos
+
+
+#alias name=value
+#alias name='command arg1 arg2'
+#alias name='/path/to/script arg1 arg2'
+#unalias aliasname
+
+# editor
+alias vim="vim -p"
+alias v="vim"
+
+# updates
+alias dada="sudo apt update && sudo apt upgrade && sudo apt autoremove"
+## this one is to be used with caution pretty experimental still
+alias pidada='pip list --outdated --format=freeze |grep -v "^\-e" \
+|cut -d "=" -f 1 |xargs -n1 pip install -U --user'   
+
+# work dir - should use on() (defined in zsh_functions file)
+alias wowo="cd /home/sturgos/work"
+
+# pyserv
+alias pyserv="python3 -m http.server 24333"
+
+#human readable
+alias df="df -h"
+alias du="du -h"
+alias tree="tree -I .git -qhFAC"
+
+#tool
+alias now='date +"%Y-%m-%d ~ %T"' 

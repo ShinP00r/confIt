@@ -1,0 +1,44 @@
+# author: sturgos
+
+# Create dir and cd in it
+mkcd(){
+    if [ -z "$1" ]; then
+        echo "Usage: $0 folder_name";
+        return 1
+    fi
+    mkdir -pv $1; cd $1;
+}
+
+# List most used commands (10 by default, value can be passed as $1).
+# TODO: FIX ME: not working as expected
+used(){
+	if [ -z $1 ]; then
+		history |awk '{print $2 " " $3}' |sort |uniq -c |sort -nr |head -n 10
+	else
+		history |awk '{print $2 " " $3}' |sort |uniq -c |sort -nr |head -n $1
+	fi
+}
+
+# Find a folder in $WORKPATH (can be a array-like $PATH) and cd in
+# TODO: set env for every project
+on(){
+	if [ -z $1 ]; then
+		echo "Usage: $0 project_name"
+		return 1
+	fi
+	if [ -z $WORKPATH ]; then
+		echo "You should set \$WORKPATH."
+		return 1
+	fi
+	for DIR in $(echo $WORKPATH |sed 's/:/ /g'); do
+		CDDIR=$(find $DIR -type d -iname "*$1*" -print -quit)
+		if [[ ! -z $CDDIR ]]; then
+			#  TODO : for setting enviroment when needed swithc/case over :
+			# $PROJECT_NAME = $(echo $CDDIR |rev |cut -d '/' -f 1 |rev)
+			 cd $CDDIR
+			 return 0
+		fi
+	done
+	echo -e "No folder matching '*$1*' was found in \$WORKPATH.\nExiting."
+	return 1
+}
