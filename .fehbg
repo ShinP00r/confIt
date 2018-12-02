@@ -1,2 +1,2 @@
 #!/bin/sh
-feh  --image-bg black --bg-center '/home/sturgos/Downloads/wp.jpg' 
+feh --image-bg black --bg-center '~/wp.jpg'
